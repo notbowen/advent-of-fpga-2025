@@ -1,0 +1,14 @@
+opam-version: "2.0"
+maintainer: "Hu Bowen"
+authors: ["Hu Bowen <contact@hubowen.dev>"]
+license: "MIT"
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]
+depends: [
+  "ocaml" {>= "5.1.0"}
+  "dune" {>= "3.17.0"}
+]
+available: arch != "arm32" & arch != "x86_32"
+synopsis: "Submission for Jane Street's Advent of FPGA challenge"
+description: "TODO"
