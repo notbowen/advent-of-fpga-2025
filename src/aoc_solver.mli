@@ -20,4 +20,4 @@ module O : sig
   [@@deriving sexp_of, hardcaml]
 end
 
-val create : Signal.t I.t -> Signal.t O.t
+val hierarchical : Scope.t -> Signal.t I.t -> Signal.t O.t

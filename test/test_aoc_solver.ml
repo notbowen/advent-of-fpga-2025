@@ -1,14 +1,19 @@
 open Base
 open Hardcaml
-(* open Hardcaml_waveterm *)
+open Hardcaml_test_harness
 
 module Aoc_solver = Day04.Aoc_solver
-module Sim = Cyclesim.With_interface (Aoc_solver.I) (Aoc_solver.O)
+module Harness = Cyclesim_harness.Make (Aoc_solver.I) (Aoc_solver.O)
 
-let testbench () =
-  let sim = Sim.create Aoc_solver.create in
-  let inputs = Cyclesim.inputs sim in
-  let outputs = Cyclesim.outputs sim in
+let testbench sim =
+  let load = Cyclesim.in_port sim "load" in
+  let load_data = Cyclesim.in_port sim "load_data" in
+  let start = Cyclesim.in_port sim "start" in
+  let clear = Cyclesim.in_port sim "clear" in
+
+  let total_removed = Cyclesim.out_port sim "total_removed" in
+  let current_active = Cyclesim.out_port sim "current_active" in
+  let finished = Cyclesim.out_port sim "finished" in
 
   let input_map =
     [
@@ -26,8 +31,8 @@ let testbench () =
   in
 
   let load_map () =
-    inputs.load := Bits.vdd;
-    inputs.start := Bits.gnd;
+    load := Bits.vdd;
+    start := Bits.gnd;
 
     let bits =
       String.concat input_map |> String.to_list
@@ -35,23 +40,23 @@ let testbench () =
     in
 
     List.iter bits ~f:(fun b ->
-        inputs.load_data := if b = 1 then Bits.vdd else Bits.gnd;
+        load_data := if b = 1 then Bits.vdd else Bits.gnd;
         Cyclesim.cycle sim);
-    inputs.load := Bits.gnd
+    load := Bits.gnd
   in
 
-  inputs.clear := Bits.vdd;
+  clear := Bits.vdd;
   Cyclesim.cycle sim;
-  inputs.clear := Bits.gnd;
+  clear := Bits.gnd;
 
   load_map ();
-  inputs.start := Bits.vdd;
+  start := Bits.vdd;
 
   let rec run_until_done cycle =
     Cyclesim.cycle sim;
-    let removed_now = Bits.to_int_trunc !(outputs.total_removed) in
-    let active_now = Bits.to_int_trunc !(outputs.current_active) in
-    let is_done = Bits.to_bool !(outputs.finished) in
+    let removed_now = Bits.to_int_trunc !total_removed in
+    let active_now = Bits.to_int_trunc !current_active in
+    let is_done = Bits.to_bool !finished in
 
     Stdio.printf "Cycle %d: Removed thus far = %d | Remaining = %d\n" cycle
       removed_now active_now;
@@ -62,8 +67,9 @@ let testbench () =
   run_until_done 1
 
 let%expect_test "" =
-  testbench ();
-  [%expect {|
+  Harness.run_advanced ~create:Aoc_solver.hierarchical testbench;
+  [%expect
+    {|
     Cycle 1: Removed thus far = 13 | Remaining = 58
     Cycle 2: Removed thus far = 25 | Remaining = 46
     Cycle 3: Removed thus far = 32 | Remaining = 39

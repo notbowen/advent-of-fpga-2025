@@ -22,7 +22,7 @@ module O = struct
   [@@deriving sexp_of, hardcaml]
 end
 
-let create (i : Signal.t I.t) =
+let create _scope (i : _ I.t) =
   let open Config in
   let spec = Reg_spec.create ~clock:i.clock ~clear:i.clear () in
 
@@ -114,3 +114,7 @@ let create (i : Signal.t I.t) =
     total_removed = total_removed_acc.value;
     current_active;
   }
+
+let hierarchical scope =
+  let module Scoped = Hierarchy.In_scope (I) (O) in
+  Scoped.hierarchical ~scope ~name:"aoc_solver" create
