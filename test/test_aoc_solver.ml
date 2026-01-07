@@ -45,8 +45,6 @@ let testbench () =
   inputs.clear := Bits.gnd;
 
   load_map ();
-  Stdio.printf "[+] Map loaded.\n";
-
   inputs.start := Bits.vdd;
 
   let rec run_until_done cycle =
@@ -66,7 +64,6 @@ let testbench () =
 let%expect_test "" =
   testbench ();
   [%expect {|
-    [+] Map loaded.
     Cycle 1: Removed thus far = 13 | Remaining = 58
     Cycle 2: Removed thus far = 25 | Remaining = 46
     Cycle 3: Removed thus far = 32 | Remaining = 39
