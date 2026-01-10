@@ -114,7 +114,3 @@ let create _scope (i : _ I.t) =
     total_removed = total_removed_acc.value;
     current_active;
   }
-
-let hierarchical scope =
-  let module Scoped = Hierarchy.In_scope (I) (O) in
-  Scoped.hierarchical ~scope ~name:"aoc_solver" create

@@ -1,19 +1,42 @@
 open Base
 open Hardcaml
 open Hardcaml_test_harness
+module Axi_wrapper = Day04.Axi_wrapper
+module Harness = Cyclesim_harness.Make (Axi_wrapper.I) (Axi_wrapper.O)
 
-module Aoc_solver = Day04.Aoc_solver
-module Harness = Cyclesim_harness.Make (Aoc_solver.I) (Aoc_solver.O)
+let addr_ctrl = 0
+let addr_load = 1
+let addr_status = 2
+let addr_result_removed = 3
+let addr_result_active = 4
 
 let testbench sim =
-  let load = Cyclesim.in_port sim "load" in
-  let load_data = Cyclesim.in_port sim "load_data" in
-  let start = Cyclesim.in_port sim "start" in
   let clear = Cyclesim.in_port sim "clear" in
 
-  let total_removed = Cyclesim.out_port sim "total_removed" in
-  let current_active = Cyclesim.out_port sim "current_active" in
-  let finished = Cyclesim.out_port sim "finished" in
+  let write_enable = Cyclesim.in_port sim "write_enable" in
+  let write_addr = Cyclesim.in_port sim "write_addr" in
+  let write_data = Cyclesim.in_port sim "write_data" in
+
+  let read_data = Cyclesim.out_port sim "read_data" in
+
+  let bus_write addr data =
+    write_enable := Bits.vdd;
+    write_addr := Bits.of_int_trunc ~width:4 addr;
+    write_data := Bits.of_int_trunc ~width:32 data;
+    Cyclesim.cycle sim;
+    write_enable := Bits.gnd
+  in
+
+  let bus_read addr =
+    write_enable := Bits.gnd;
+    write_addr := Bits.of_int_trunc ~width:4 addr;
+    Cyclesim.cycle sim;
+    Bits.to_int_trunc !read_data
+  in
+
+  clear := Bits.vdd;
+  Cyclesim.cycle sim;
+  clear := Bits.gnd;
 
   let input_map =
     [
@@ -30,53 +53,40 @@ let testbench sim =
     ]
   in
 
-  let load_map () =
-    load := Bits.vdd;
-    start := Bits.gnd;
-
-    let bits =
-      String.concat input_map |> String.to_list
-      |> List.map ~f:(function '@' -> 1 | _ -> 0)
-    in
-
-    List.iter bits ~f:(fun b ->
-        load_data := if b = 1 then Bits.vdd else Bits.gnd;
-        Cyclesim.cycle sim);
-    load := Bits.gnd
+  let bits =
+    String.concat input_map |> String.to_list
+    |> List.map ~f:(function '@' -> 1 | _ -> 0)
   in
 
-  clear := Bits.vdd;
-  Cyclesim.cycle sim;
-  clear := Bits.gnd;
+  List.iter bits ~f:(fun b -> bus_write addr_load b);
 
-  load_map ();
-  start := Bits.vdd;
+  bus_write addr_ctrl 1;
 
-  let rec run_until_done cycle =
-    Cyclesim.cycle sim;
-    let removed_now = Bits.to_int_trunc !total_removed in
-    let active_now = Bits.to_int_trunc !current_active in
-    let is_done = Bits.to_bool !finished in
+  let rec poll_until_done cycle =
+    let status_val = bus_read addr_status in
+    let is_finished = status_val land 1 = 1 in
 
-    Stdio.printf "Cycle %d: Removed thus far = %d | Remaining = %d\n" cycle
-      removed_now active_now;
+    let removed = bus_read addr_result_removed in
+    let active = bus_read addr_result_active in
 
-    if is_done then () else run_until_done (cycle + 1)
+    Stdio.printf "[DEBUG] Cycle %d: Removed thus far = %d | Remaining = %d\n"
+      cycle removed active;
+
+    if is_finished then Stdio.printf "Answer: %d\n" removed
+    else poll_until_done (cycle + 1)
   in
 
-  run_until_done 1
+  poll_until_done 1;
+
+  bus_write addr_ctrl 0
 
 let%expect_test "" =
-  Harness.run_advanced ~create:Aoc_solver.hierarchical testbench;
+  Harness.run_advanced ~create:Axi_wrapper.hierarchical testbench;
   [%expect
     {|
-    Cycle 1: Removed thus far = 13 | Remaining = 58
-    Cycle 2: Removed thus far = 25 | Remaining = 46
-    Cycle 3: Removed thus far = 32 | Remaining = 39
-    Cycle 4: Removed thus far = 37 | Remaining = 34
-    Cycle 5: Removed thus far = 39 | Remaining = 32
-    Cycle 6: Removed thus far = 40 | Remaining = 31
-    Cycle 7: Removed thus far = 41 | Remaining = 30
-    Cycle 8: Removed thus far = 42 | Remaining = 29
-    Cycle 9: Removed thus far = 43 | Remaining = 28
+    [DEBUG] Cycle 1: Removed thus far = 25 | Remaining = 39
+    [DEBUG] Cycle 2: Removed thus far = 39 | Remaining = 31
+    [DEBUG] Cycle 3: Removed thus far = 42 | Remaining = 28
+    [DEBUG] Cycle 4: Removed thus far = 43 | Remaining = 28
+    Answer: 43
     |}]
