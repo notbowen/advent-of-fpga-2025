@@ -16,6 +16,7 @@ let testbench sim =
   let write_enable = Cyclesim.in_port sim "write_enable" in
   let write_addr = Cyclesim.in_port sim "write_addr" in
   let write_data = Cyclesim.in_port sim "write_data" in
+  let read_addr = Cyclesim.in_port sim "read_addr" in
 
   let read_data = Cyclesim.out_port sim "read_data" in
 
@@ -29,7 +30,7 @@ let testbench sim =
 
   let bus_read addr =
     write_enable := Bits.gnd;
-    write_addr := Bits.of_int_trunc ~width:4 addr;
+    read_addr := Bits.of_int_trunc ~width:4 addr;
     Cyclesim.cycle sim;
     Bits.to_int_trunc !read_data
   in

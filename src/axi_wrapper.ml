@@ -11,6 +11,7 @@ module I = struct
     write_enable : 'a;
     write_addr : 'a; [@bits 4]
     write_data : 'a; [@bits 32]
+    read_addr : 'a; [@bits 4]
   }
   [@@deriving sexp_of, hardcaml]
 end
@@ -52,7 +53,7 @@ let create _scope (i : _ I.t) =
   let solver_outputs = Solver.create _scope solver_inputs in
 
   let read_data =
-    mux i.write_addr
+    mux i.read_addr
       [
         control_reg.value;
         zero 32;
