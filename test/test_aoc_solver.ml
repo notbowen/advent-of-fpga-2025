@@ -31,7 +31,8 @@ let load_inputs (sim : Sim.t) (input_data : int Data.t array) =
     inputs.write_address <--. i;
     inputs.write_data.value <--. input_data.(i).value;
     Cyclesim.cycle sim
-  done
+  done;
+  inputs.write_enable <--. 0
 
 let run_core (sim : Sim.t) =
   let inputs = Cyclesim.inputs sim in
@@ -42,15 +43,17 @@ let run_core (sim : Sim.t) =
   inputs.start <--. 0;
 
   let timeout = ref 0 in
-  while (not (Bits.to_bool !(outputs.done_))) && !timeout < 5000 do
+  while (not (Bits.to_bool !(outputs.done_))) && !timeout < 2_500_000 do
     Cyclesim.cycle sim;
     Int.incr timeout
   done;
 
   Cyclesim.cycle sim;
 
-  let total_removed = Bits.to_unsigned_int !(outputs.total_removed) in
-  Stdio.printf "Total removed: %d\n" total_removed
+  if !timeout <> 2_500_000 then
+    let total_removed = Bits.to_unsigned_int !(outputs.total_removed) in
+    Stdio.printf "Total removed: %d\n" total_removed
+  else Stdio.printf "Timeout!\n"
 
 let test ~input_data =
   let scope =
