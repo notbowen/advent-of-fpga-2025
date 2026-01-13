@@ -1,12 +1,23 @@
 open Hardcaml
-open Day04
+
+module Data = struct
+  type 'a t = { value : 'a } [@@deriving hardcaml]
+end
+
+module Config = struct
+  module Data = Data
+
+  let log_size = 7
+  let width = 10
+  let height = 10
+end
+
+module Solver = Day04.Aoc_solver.Make_with_memory (Config)
 
 let generate_rtl () =
-  let module C = Circuit.With_interface (Axi_wrapper.I) (Axi_wrapper.O) in
+  let module C = Circuit.With_interface (Solver.I) (Solver.O) in
   let scope = Scope.create ~auto_label_hierarchical_ports:true () in
-  let circuit =
-    C.create_exn ~name:"aoc_solver_top" (Axi_wrapper.hierarchical scope)
-  in
+  let circuit = C.create_exn ~name:"aoc_solver_top" (Solver.create scope) in
   let rtl_circuits =
     Rtl.create ~database:(Scope.circuit_database scope) Verilog [ circuit ]
   in

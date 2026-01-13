@@ -4,5 +4,5 @@
  (libraries core.command core_unix.command_unix core core_unix hardcaml
    day04 jane_rope)
  (preprocess
-  (pps ppx_jane))
+  (pps ppx_jane ppx_hardcaml))
  (promote))
