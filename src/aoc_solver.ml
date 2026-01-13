@@ -66,8 +66,8 @@ module Make (Config : Config) = struct
 
     let window = [ taps row0; taps row1; taps row2 ] in
 
-    let cur_x = pipeline spec ~n:(Config.width + 1) x_count.value in
-    let cur_y = pipeline spec ~n:(Config.width + 1) y_count.value in
+    let cur_x = x_count.value in
+    let cur_y = y_count.value in
 
     let is_left = cur_x ==:. 0 in
     let is_right = cur_x ==:. Config.width - 1 in
@@ -81,8 +81,8 @@ module Make (Config : Config) = struct
           is_top
           &: (of_int_trunc ~width:3 row ==:. 2)
           |: (is_bottom &: (of_int_trunc ~width:3 row ==:. 0))
-          |: (is_left &: (of_int_trunc ~width:3 col ==:. 2))
-          |: (is_right &: (of_int_trunc ~width:3 col ==:. 0))
+          |: (is_left &: (of_int_trunc ~width:3 col ==:. 0))
+          |: (is_right &: (of_int_trunc ~width:3 col ==:. 2))
         in
         ~:is_out &: signal
       in
@@ -119,7 +119,7 @@ module Make (Config : Config) = struct
                 [
                   read_addr <-- read_addr.value +:. 1;
                   when_
-                    (read_addr.value ==:. Config.width + 1)
+                    (read_addr.value ==:. Config.width)
                     [ sm.set_next Process ];
                 ] );
               ( Process,
@@ -136,9 +136,7 @@ module Make (Config : Config) = struct
                       has_changed <-- vdd;
                       total_removed <-- total_removed.value +:. 1;
                     ];
-                  when_
-                    (y_count.value ==:. Config.height - 1
-                    &: (x_count.value ==:. Config.width - 1))
+                  when_ (write_addr ==:. Config.width * Config.height - 1)
                     [ sm.set_next Check ];
                 ] );
               ( Check,
