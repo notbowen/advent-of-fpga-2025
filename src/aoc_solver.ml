@@ -98,9 +98,22 @@ module Make (Config : Config) = struct
     let remove = sm.is Process &: center &: (neighbours_count <:. 4) in
     let write_addr = pipeline spec ~n:(Config.width + 2) read_addr.value in
 
+    let advancing =
+      sm.is Load
+      |: (sm.is Process &: (read_addr.value <:. Config.width * Config.height))
+    in
+
     Always.(
       compile
         [
+          when_ advancing
+            [
+              read_addr <-- read_addr.value +:. 1;
+              if_
+                (x_count.value ==:. Config.width - 1)
+                [ x_count <--. 0; y_count <-- y_count.value +:. 1 ]
+                [ x_count <-- x_count.value +:. 1 ];
+            ];
           sm.switch
             [
               ( Start,
@@ -117,20 +130,12 @@ module Make (Config : Config) = struct
                 ] );
               ( Load,
                 [
-                  read_addr <-- read_addr.value +:. 1;
                   when_
-                    (read_addr.value ==:. Config.width)
+                    (read_addr.value ==:. Config.width + 1)
                     [ sm.set_next Process ];
                 ] );
               ( Process,
                 [
-                  when_
-                    (read_addr.value <:. Config.width * Config.height)
-                    [ read_addr <-- read_addr.value +:. 1 ];
-                  if_
-                    (x_count.value ==:. Config.width - 1)
-                    [ x_count <--. 0; y_count <-- y_count.value +:. 1 ]
-                    [ x_count <-- x_count.value +:. 1 ];
                   when_ remove
                     [
                       has_changed <-- vdd;
