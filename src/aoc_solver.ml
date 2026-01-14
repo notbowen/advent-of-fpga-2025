@@ -66,8 +66,8 @@ module Make (Config : Config) = struct
 
     let window = [ taps row0; taps row1; taps row2 ] in
 
-    let cur_x = x_count.value in
-    let cur_y = y_count.value in
+    let cur_x = pipeline spec ~n:(Config.width + 2) x_count.value in
+    let cur_y = pipeline spec ~n:(Config.width + 2) y_count.value in
 
     let is_left = cur_x ==:. 0 in
     let is_right = cur_x ==:. Config.width - 1 in
@@ -96,7 +96,7 @@ module Make (Config : Config) = struct
     in
 
     let remove = sm.is Process &: center &: (neighbours_count <:. 4) in
-    let write_addr = pipeline spec ~n:(Config.width + 1) read_addr.value in
+    let write_addr = pipeline spec ~n:(Config.width + 2) read_addr.value in
 
     Always.(
       compile
@@ -187,6 +187,7 @@ module Make_with_memory (Config : Config) = struct
   end
 
   let create scope (i : _ I.t) =
+    let spec = Clocking.to_spec i.clocking in
     let read_wire = Config.Data.Of_signal.wires () in
 
     let solver =
@@ -220,7 +221,7 @@ module Make_with_memory (Config : Config) = struct
         ~read_addresses:[| solver.read_address |]
     in
 
-    let solver_read_data = Config.Data.Of_signal.unpack memory.(0) in
+    let solver_read_data = Config.Data.Of_signal.unpack (reg spec memory.(0)) in
     Config.Data.Of_signal.assign read_wire solver_read_data;
 
     { O.done_ = solver.done_; total_removed = solver.total_removed }
