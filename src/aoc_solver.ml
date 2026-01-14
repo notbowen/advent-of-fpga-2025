@@ -136,7 +136,8 @@ module Make (Config : Config) = struct
                       has_changed <-- vdd;
                       total_removed <-- total_removed.value +:. 1;
                     ];
-                  when_ (write_addr ==:. Config.width * Config.height - 1)
+                  when_
+                    (write_addr ==:. (Config.width * Config.height) - 1)
                     [ sm.set_next Check ];
                 ] );
               ( Check,
@@ -186,12 +187,23 @@ module Make_with_memory (Config : Config) = struct
   end
 
   let create scope (i : _ I.t) =
-    let zero_addr = of_int_trunc ~width:Config.log_size 0 in
     let read_wire = Config.Data.Of_signal.wires () in
 
     let solver =
       Aoc_solver.create scope
         { Aoc_solver.I.clocking = i.clocking; start = i.start; d = read_wire }
+    in
+
+    let write_enable = i.write_enable |: solver.write_enable in
+
+    let write_address =
+      mux2 solver.write_enable solver.write_address i.write_address
+    in
+
+    let write_data =
+      mux2 solver.write_enable
+        (Config.Data.Of_signal.pack solver.write_data)
+        (Config.Data.Of_signal.pack i.write_data)
     in
 
     let memory =
@@ -200,21 +212,15 @@ module Make_with_memory (Config : Config) = struct
           [|
             {
               write_clock = i.clocking.clock;
-              write_address = i.write_address;
-              write_enable = i.write_enable;
-              write_data = Config.Data.Of_signal.pack i.write_data;
-            };
-            {
-              write_clock = i.clocking.clock;
-              write_address = solver.write_address;
-              write_enable = solver.write_enable;
-              write_data = Config.Data.Of_signal.pack solver.write_data;
+              write_address;
+              write_enable;
+              write_data;
             };
           |]
-        ~read_addresses:[| zero_addr; solver.read_address |]
+        ~read_addresses:[| solver.read_address |]
     in
 
-    let solver_read_data = Config.Data.Of_signal.unpack memory.(1) in
+    let solver_read_data = Config.Data.Of_signal.unpack memory.(0) in
     Config.Data.Of_signal.assign read_wire solver_read_data;
 
     { O.done_ = solver.done_; total_removed = solver.total_removed }

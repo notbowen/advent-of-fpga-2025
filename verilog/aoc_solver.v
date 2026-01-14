@@ -14,71 +14,71 @@ module aoc_solver_top (
     input [3:0] reg_addr;
     output [31:0] reg_rdata;
 
-    wire [31:0] _245;
-    wire _241;
-    wire [14:0] _240;
-    wire [15:0] _242;
-    wire [15:0] _231;
-    wire [15:0] _235;
-    wire [15:0] _236;
-    wire [15:0] _237;
+    wire [31:0] _248;
+    wire _244;
+    wire [14:0] _243;
+    wire [15:0] _245;
     wire [15:0] _234;
+    wire [15:0] _238;
+    wire [15:0] _239;
+    wire [15:0] _240;
+    wire [15:0] _237;
     wire [2:0] _20;
-    wire [2:0] _228;
-    wire [2:0] _229;
+    wire [2:0] _231;
+    wire [2:0] _232;
     wire [2:0] _43;
+    wire [6:0] _228;
+    wire _229;
+    wire [2:0] _230;
     wire [6:0] _225;
-    wire _226;
-    wire [2:0] _227;
-    wire [6:0] _222;
     wire [6:0] _56;
     wire _39;
-    wire _207;
+    wire _210;
     wire vdd;
-    wire [3:0] _199;
-    wire _194;
-    wire _195;
-    wire _196;
-    wire [3:0] _197;
-    wire _189;
-    wire _190;
-    wire [3:0] _191;
-    reg _162;
-    reg _164;
-    reg _166;
-    reg _168;
-    reg _170;
-    reg _172;
-    reg _174;
-    reg _176;
-    reg _178;
-    reg _180;
-    reg _182;
-    reg _184;
+    wire [3:0] _167;
+    wire _162;
+    wire _163;
+    wire _164;
+    wire [3:0] _165;
+    wire _157;
     wire _158;
-    wire _159;
-    wire _160;
-    wire _185;
-    wire [3:0] _186;
-    wire _152;
+    wire [3:0] _159;
+    reg _130;
+    reg _132;
+    reg _134;
+    reg _136;
+    reg _138;
+    reg _140;
+    reg _142;
+    reg _144;
+    reg _146;
+    reg _148;
+    reg _150;
+    reg _152;
+    wire _126;
+    wire _127;
+    wire _128;
     wire _153;
     wire [3:0] _154;
-    reg _147;
-    wire _145;
-    wire _148;
-    wire [3:0] _149;
-    wire [6:0] _137;
-    wire _138;
-    wire _139;
-    wire _140;
-    wire _141;
-    wire [3:0] _142;
-    wire _132;
-    wire _133;
-    wire [3:0] _134;
-    reg _126;
-    reg _128;
-    wire _122;
+    wire _120;
+    wire _121;
+    wire [3:0] _122;
+    reg _115;
+    wire _113;
+    wire _116;
+    wire [3:0] _117;
+    wire [6:0] _105;
+    wire _106;
+    wire _107;
+    wire _108;
+    wire _109;
+    wire [3:0] _110;
+    wire _100;
+    wire _101;
+    wire [3:0] _102;
+    reg _94;
+    reg _96;
+    wire _90;
     wire [6:0] _53;
     wire [6:0] _49;
     wire [6:0] _50;
@@ -95,82 +95,85 @@ module aoc_solver_top (
     reg [6:0] _54;
     wire [6:0] _2;
     reg [6:0] _46;
-    wire _120;
-    wire _123;
-    wire _124;
-    wire _129;
-    wire [3:0] _130;
-    wire [3:0] _135;
-    wire [3:0] _143;
-    wire [3:0] _150;
+    wire _88;
+    wire _91;
+    wire _92;
+    wire _97;
+    wire [3:0] _98;
+    wire [3:0] _103;
+    wire [3:0] _111;
+    wire [3:0] _118;
+    wire [3:0] _123;
     wire [3:0] _155;
-    wire [3:0] _187;
-    wire [3:0] _192;
-    wire [3:0] _198;
-    wire _200;
-    wire _94;
-    wire _93;
-    wire _95;
-    reg [6:0] _68;
-    reg [6:0] _70;
-    reg [6:0] _72;
-    reg [6:0] _74;
-    reg [6:0] _76;
-    reg [6:0] _78;
-    reg [6:0] _80;
-    reg [6:0] _82;
-    reg [6:0] _84;
-    reg [6:0] _86;
-    reg [6:0] _88;
-    wire [3:0] _64;
-    wire _65;
-    wire _66;
-    wire _63;
-    wire [3:0] _59;
-    wire _60;
+    wire [3:0] _160;
+    wire [3:0] _166;
+    wire _168;
+    wire _62;
     wire _61;
+    wire _63;
+    wire [3:0] _201;
+    wire _202;
+    wire _203;
+    wire _204;
+    wire _198;
+    wire _200;
+    reg [6:0] _176;
+    reg [6:0] _178;
+    reg [6:0] _180;
+    reg [6:0] _182;
+    reg [6:0] _184;
+    reg [6:0] _186;
+    reg [6:0] _188;
+    reg [6:0] _190;
+    reg [6:0] _192;
+    reg [6:0] _194;
+    reg [6:0] _196;
+    wire [3:0] _171;
+    wire _172;
+    wire _173;
     wire _4;
     wire [6:0] _55;
     wire [6:0] _5;
-    reg [6:0] _62;
+    reg [6:0] _174;
+    wire [6:0] _197;
     wire _7;
-    reg [0:0] _202[0:127];
-    wire _203;
-    wire _8;
-    reg _96;
-    reg _98;
-    reg _100;
-    reg _102;
-    reg _104;
-    reg _106;
-    reg _108;
-    reg _110;
-    reg _112;
-    reg _114;
-    reg _116;
-    wire [2:0] _38;
-    wire _90;
-    wire _117;
-    wire _201;
+    reg [0:0] _205[0:127];
     wire _206;
+    wire _8;
+    reg _64;
+    reg _66;
+    reg _68;
+    reg _70;
+    reg _72;
+    reg _74;
+    reg _76;
+    reg _78;
+    reg _80;
+    reg _82;
+    reg _84;
+    wire [2:0] _38;
+    wire _58;
+    wire _85;
+    wire _169;
+    wire _209;
     wire gnd;
-    wire _204;
-    reg _208;
+    wire _207;
+    reg _211;
     wire _9;
     reg _40;
+    wire [6:0] _222;
     wire [6:0] _219;
     wire [6:0] _216;
+    wire _217;
+    wire [6:0] _220;
+    wire [6:0] _215;
     wire [6:0] _213;
-    wire _214;
-    wire [6:0] _217;
-    wire [6:0] _212;
-    wire [6:0] _210;
-    reg [6:0] _220;
+    reg [6:0] _223;
     wire [6:0] _10;
     reg [6:0] _57;
-    wire _223;
-    wire [2:0] _224;
-    wire [2:0] _92;
+    wire _226;
+    wire [2:0] _227;
+    wire [2:0] _60;
     wire [31:0] _12;
     wire _25;
     wire [3:0] _22;
@@ -178,180 +181,180 @@ module aoc_solver_top (
     wire _14;
     wire _24;
     wire _26;
-    wire [2:0] _221;
-    reg [2:0] _230;
+    wire [2:0] _224;
+    reg [2:0] _233;
     wire [2:0] _15;
     (* fsm_encoding="one_hot" *)
     reg [2:0] _21;
-    reg [15:0] _238;
+    reg [15:0] _241;
     wire [15:0] _16;
-    reg [15:0] _232;
-    wire [31:0] _243;
+    reg [15:0] _235;
+    wire [31:0] _246;
     wire [3:0] _18;
-    reg [31:0] _246;
-    assign _245 = 32'b00000000000000000000000000000000;
-    assign _241 = _228 == _21;
-    assign _240 = 15'b000000000000000;
-    assign _242 = { _240,
-                    _241 };
-    assign _231 = 16'b0000000000000000;
-    assign _235 = 16'b0000000000000001;
-    assign _236 = _232 + _235;
-    assign _237 = _201 ? _236 : _232;
-    assign _234 = _26 ? _231 : _232;
+    reg [31:0] _249;
+    assign _248 = 32'b00000000000000000000000000000000;
+    assign _244 = _231 == _21;
+    assign _243 = 15'b000000000000000;
+    assign _245 = { _243,
+                    _244 };
+    assign _234 = 16'b0000000000000000;
+    assign _238 = 16'b0000000000000001;
+    assign _239 = _235 + _238;
+    assign _240 = _169 ? _239 : _235;
+    assign _237 = _26 ? _234 : _235;
     assign _20 = 3'b000;
-    assign _228 = 3'b100;
-    assign _229 = _40 ? _92 : _228;
+    assign _231 = 3'b100;
+    assign _232 = _40 ? _60 : _231;
     assign _43 = 3'b011;
-    assign _225 = 7'b1100011;
-    assign _226 = _88 == _225;
-    assign _227 = _226 ? _43 : _21;
-    assign _222 = 7'b0001010;
+    assign _228 = 7'b1100011;
+    assign _229 = _196 == _228;
+    assign _230 = _229 ? _43 : _21;
+    assign _225 = 7'b0001010;
     assign _56 = 7'b0000000;
     assign _39 = 1'b0;
-    assign _207 = _40 ? gnd : _40;
+    assign _210 = _40 ? gnd : _40;
     assign vdd = 1'b1;
-    assign _199 = 4'b0100;
-    assign _194 = _158 | _138;
-    assign _195 = ~ _194;
-    assign _196 = _195 & _180;
-    assign _197 = { _20,
-                    _196 };
-    assign _189 = ~ _158;
-    assign _190 = _189 & _182;
-    assign _191 = { _20,
-                    _190 };
+    assign _167 = 4'b0100;
+    assign _162 = _126 | _106;
+    assign _163 = ~ _162;
+    assign _164 = _163 & _148;
+    assign _165 = { _20,
+                    _164 };
+    assign _157 = ~ _126;
+    assign _158 = _157 & _150;
+    assign _159 = { _20,
+                    _158 };
     always @(posedge _7) begin
         if (_4)
-            _162 <= _39;
+            _130 <= _39;
         else
-            if (_95)
-                _162 <= _114;
+            if (_63)
+                _130 <= _82;
     end
     always @(posedge _7) begin
         if (_4)
-            _164 <= _39;
+            _132 <= _39;
         else
-            if (_95)
-                _164 <= _162;
+            if (_63)
+                _132 <= _130;
     end
     always @(posedge _7) begin
         if (_4)
-            _166 <= _39;
+            _134 <= _39;
         else
-            if (_95)
-                _166 <= _164;
+            if (_63)
+                _134 <= _132;
     end
     always @(posedge _7) begin
         if (_4)
-            _168 <= _39;
+            _136 <= _39;
         else
-            if (_95)
-                _168 <= _166;
+            if (_63)
+                _136 <= _134;
     end
     always @(posedge _7) begin
         if (_4)
-            _170 <= _39;
+            _138 <= _39;
         else
-            if (_95)
-                _170 <= _168;
+            if (_63)
+                _138 <= _136;
     end
     always @(posedge _7) begin
         if (_4)
-            _172 <= _39;
+            _140 <= _39;
         else
-            if (_95)
-                _172 <= _170;
+            if (_63)
+                _140 <= _138;
     end
     always @(posedge _7) begin
         if (_4)
-            _174 <= _39;
+            _142 <= _39;
         else
-            if (_95)
-                _174 <= _172;
+            if (_63)
+                _142 <= _140;
     end
     always @(posedge _7) begin
         if (_4)
-            _176 <= _39;
+            _144 <= _39;
         else
-            if (_95)
-                _176 <= _174;
+            if (_63)
+                _144 <= _142;
     end
     always @(posedge _7) begin
         if (_4)
-            _178 <= _39;
+            _146 <= _39;
         else
-            if (_95)
-                _178 <= _176;
+            if (_63)
+                _146 <= _144;
     end
     always @(posedge _7) begin
         if (_4)
-            _180 <= _39;
+            _148 <= _39;
         else
-            if (_95)
-                _180 <= _178;
+            if (_63)
+                _148 <= _146;
     end
     always @(posedge _7) begin
         if (_4)
-            _182 <= _39;
+            _150 <= _39;
         else
-            if (_95)
-                _182 <= _180;
+            if (_63)
+                _150 <= _148;
     end
     always @(posedge _7) begin
         if (_4)
-            _184 <= _39;
+            _152 <= _39;
         else
-            if (_95)
-                _184 <= _182;
+            if (_63)
+                _152 <= _150;
     end
-    assign _158 = _46 == _56;
-    assign _159 = _158 | _122;
-    assign _160 = ~ _159;
-    assign _185 = _160 & _184;
-    assign _186 = { _20,
-                    _185 };
-    assign _152 = ~ _138;
-    assign _153 = _152 & _114;
+    assign _126 = _46 == _56;
+    assign _127 = _126 | _90;
+    assign _128 = ~ _127;
+    assign _153 = _128 & _152;
     assign _154 = { _20,
                     _153 };
+    assign _120 = ~ _106;
+    assign _121 = _120 & _82;
+    assign _122 = { _20,
+                    _121 };
     always @(posedge _7) begin
         if (_4)
-            _147 <= _39;
+            _115 <= _39;
         else
-            if (_95)
-                _147 <= _116;
+            if (_63)
+                _115 <= _84;
     end
-    assign _145 = ~ _122;
-    assign _148 = _145 & _147;
-    assign _149 = { _20,
-                    _148 };
-    assign _137 = 7'b0001001;
-    assign _138 = _28 == _137;
-    assign _139 = _120 | _138;
-    assign _140 = ~ _139;
-    assign _141 = _140 & _8;
-    assign _142 = { _20,
-                    _141 };
-    assign _132 = ~ _120;
-    assign _133 = _132 & _126;
-    assign _134 = { _20,
-                    _133 };
+    assign _113 = ~ _90;
+    assign _116 = _113 & _115;
+    assign _117 = { _20,
+                    _116 };
+    assign _105 = 7'b0001001;
+    assign _106 = _28 == _105;
+    assign _107 = _88 | _106;
+    assign _108 = ~ _107;
+    assign _109 = _108 & _8;
+    assign _110 = { _20,
+                    _109 };
+    assign _100 = ~ _88;
+    assign _101 = _100 & _94;
+    assign _102 = { _20,
+                    _101 };
     always @(posedge _7) begin
         if (_4)
-            _126 <= _39;
+            _94 <= _39;
         else
-            if (_95)
-                _126 <= _8;
+            if (_63)
+                _94 <= _8;
     end
     always @(posedge _7) begin
         if (_4)
-            _128 <= _39;
+            _96 <= _39;
         else
-            if (_95)
-                _128 <= _126;
+            if (_63)
+                _96 <= _94;
     end
-    assign _122 = _28 == _56;
+    assign _90 = _28 == _56;
     assign _53 = _40 ? _56 : _46;
     assign _49 = 7'b0000001;
     assign _50 = _46 + _49;
@@ -378,7 +381,7 @@ module aoc_solver_top (
         else
             _28 <= _1;
     end
-    assign _33 = _28 == _137;
+    assign _33 = _28 == _105;
     assign _51 = _33 ? _50 : _46;
     assign _48 = _26 ? _56 : _46;
     always @* begin
@@ -400,251 +403,250 @@ module aoc_solver_top (
         else
             _46 <= _2;
     end
-    assign _120 = _46 == _137;
-    assign _123 = _120 | _122;
-    assign _124 = ~ _123;
-    assign _129 = _124 & _128;
-    assign _130 = { _20,
-                    _129 };
-    assign _135 = _130 + _134;
-    assign _143 = _135 + _142;
-    assign _150 = _143 + _149;
-    assign _155 = _150 + _154;
-    assign _187 = _155 + _186;
-    assign _192 = _187 + _191;
-    assign _198 = _192 + _197;
-    assign _200 = _198 < _199;
-    assign _94 = _38 == _21;
-    assign _93 = _92 == _21;
-    assign _95 = _93 | _94;
+    assign _88 = _46 == _105;
+    assign _91 = _88 | _90;
+    assign _92 = ~ _91;
+    assign _97 = _92 & _96;
+    assign _98 = { _20,
+                   _97 };
+    assign _103 = _98 + _102;
+    assign _111 = _103 + _110;
+    assign _118 = _111 + _117;
+    assign _123 = _118 + _122;
+    assign _155 = _123 + _154;
+    assign _160 = _155 + _159;
+    assign _166 = _160 + _165;
+    assign _168 = _166 < _167;
+    assign _62 = _38 == _21;
+    assign _61 = _60 == _21;
+    assign _63 = _61 | _62;
+    assign _201 = 4'b0011;
+    assign _202 = _18 == _201;
+    assign _203 = _14 & _202;
+    assign _204 = _203 | _169;
+    assign _198 = _12[0:0];
+    assign _200 = _169 ? gnd : _198;
     always @(posedge _7) begin
         if (_4)
-            _68 <= _56;
+            _176 <= _56;
         else
-            _68 <= _57;
+            _176 <= _57;
     end
     always @(posedge _7) begin
         if (_4)
-            _70 <= _56;
+            _178 <= _56;
         else
-            _70 <= _68;
+            _178 <= _176;
     end
     always @(posedge _7) begin
         if (_4)
-            _72 <= _56;
+            _180 <= _56;
         else
-            _72 <= _70;
+            _180 <= _178;
     end
     always @(posedge _7) begin
         if (_4)
-            _74 <= _56;
+            _182 <= _56;
         else
-            _74 <= _72;
+            _182 <= _180;
     end
     always @(posedge _7) begin
         if (_4)
-            _76 <= _56;
+            _184 <= _56;
         else
-            _76 <= _74;
+            _184 <= _182;
     end
     always @(posedge _7) begin
         if (_4)
-            _78 <= _56;
+            _186 <= _56;
         else
-            _78 <= _76;
+            _186 <= _184;
     end
     always @(posedge _7) begin
         if (_4)
-            _80 <= _56;
+            _188 <= _56;
         else
-            _80 <= _78;
+            _188 <= _186;
     end
     always @(posedge _7) begin
         if (_4)
-            _82 <= _56;
+            _190 <= _56;
         else
-            _82 <= _80;
+            _190 <= _188;
     end
     always @(posedge _7) begin
         if (_4)
-            _84 <= _56;
+            _192 <= _56;
         else
-            _84 <= _82;
+            _192 <= _190;
     end
     always @(posedge _7) begin
         if (_4)
-            _86 <= _56;
+            _194 <= _56;
         else
-            _86 <= _84;
+            _194 <= _192;
     end
     always @(posedge _7) begin
         if (_4)
-            _88 <= _56;
+            _196 <= _56;
         else
-            _88 <= _86;
+            _196 <= _194;
     end
-    assign _64 = 4'b0011;
-    assign _65 = _18 == _64;
-    assign _66 = _14 & _65;
-    assign _63 = _12[0:0];
-    assign _59 = 4'b0010;
-    assign _60 = _18 == _59;
-    assign _61 = _14 & _60;
+    assign _171 = 4'b0010;
+    assign _172 = _18 == _171;
+    assign _173 = _14 & _172;
     assign _4 = clear;
     assign _55 = _12[6:0];
     assign _5 = _55;
     always @(posedge _7) begin
         if (_4)
-            _62 <= _56;
+            _174 <= _56;
         else
-            if (_61)
-                _62 <= _5;
+            if (_173)
+                _174 <= _5;
     end
+    assign _197 = _169 ? _196 : _174;
     assign _7 = clock;
     always @(posedge _7) begin
-        if (_66)
-            _202[_62] <= _63;
+        if (_204)
+            _205[_197] <= _200;
     end
-    always @(posedge _7) begin
-        if (_201)
-            _202[_88] <= gnd;
-    end
-    assign _203 = _202[_57];
-    assign _8 = _203;
+    assign _206 = _205[_57];
+    assign _8 = _206;
     always @(posedge _7) begin
         if (_4)
-            _96 <= _39;
+            _64 <= _39;
         else
-            if (_95)
-                _96 <= _8;
+            if (_63)
+                _64 <= _8;
     end
     always @(posedge _7) begin
         if (_4)
-            _98 <= _39;
+            _66 <= _39;
         else
-            if (_95)
-                _98 <= _96;
+            if (_63)
+                _66 <= _64;
     end
     always @(posedge _7) begin
         if (_4)
-            _100 <= _39;
+            _68 <= _39;
         else
-            if (_95)
-                _100 <= _98;
+            if (_63)
+                _68 <= _66;
     end
     always @(posedge _7) begin
         if (_4)
-            _102 <= _39;
+            _70 <= _39;
         else
-            if (_95)
-                _102 <= _100;
+            if (_63)
+                _70 <= _68;
     end
     always @(posedge _7) begin
         if (_4)
-            _104 <= _39;
+            _72 <= _39;
         else
-            if (_95)
-                _104 <= _102;
+            if (_63)
+                _72 <= _70;
     end
     always @(posedge _7) begin
         if (_4)
-            _106 <= _39;
+            _74 <= _39;
         else
-            if (_95)
-                _106 <= _104;
+            if (_63)
+                _74 <= _72;
     end
     always @(posedge _7) begin
         if (_4)
-            _108 <= _39;
+            _76 <= _39;
         else
-            if (_95)
-                _108 <= _106;
+            if (_63)
+                _76 <= _74;
     end
     always @(posedge _7) begin
         if (_4)
-            _110 <= _39;
+            _78 <= _39;
         else
-            if (_95)
-                _110 <= _108;
+            if (_63)
+                _78 <= _76;
     end
     always @(posedge _7) begin
         if (_4)
-            _112 <= _39;
+            _80 <= _39;
         else
-            if (_95)
-                _112 <= _110;
+            if (_63)
+                _80 <= _78;
     end
     always @(posedge _7) begin
         if (_4)
-            _114 <= _39;
+            _82 <= _39;
         else
-            if (_95)
-                _114 <= _112;
+            if (_63)
+                _82 <= _80;
     end
     always @(posedge _7) begin
         if (_4)
-            _116 <= _39;
+            _84 <= _39;
         else
-            if (_95)
-                _116 <= _114;
+            if (_63)
+                _84 <= _82;
     end
     assign _38 = 3'b010;
-    assign _90 = _38 == _21;
-    assign _117 = _90 & _116;
-    assign _201 = _117 & _200;
-    assign _206 = _201 ? vdd : _40;
+    assign _58 = _38 == _21;
+    assign _85 = _58 & _84;
+    assign _169 = _85 & _168;
+    assign _209 = _169 ? vdd : _40;
     assign gnd = 1'b0;
-    assign _204 = _26 ? gnd : _40;
+    assign _207 = _26 ? gnd : _40;
     always @* begin
         case (_21)
         3'b000:
-            _208 <= _204;
+            _211 <= _207;
         3'b010:
-            _208 <= _206;
+            _211 <= _209;
         3'b011:
-            _208 <= _207;
+            _211 <= _210;
         default:
-            _208 <= _40;
+            _211 <= _40;
         endcase
     end
-    assign _9 = _208;
+    assign _9 = _211;
     always @(posedge _7) begin
         if (_4)
             _40 <= _39;
         else
             _40 <= _9;
     end
-    assign _219 = _40 ? _56 : _57;
-    assign _216 = _57 + _49;
-    assign _213 = 7'b1100100;
-    assign _214 = _57 < _213;
-    assign _217 = _214 ? _216 : _57;
-    assign _212 = _57 + _49;
-    assign _210 = _26 ? _56 : _57;
+    assign _222 = _40 ? _56 : _57;
+    assign _219 = _57 + _49;
+    assign _216 = 7'b1100100;
+    assign _217 = _57 < _216;
+    assign _220 = _217 ? _219 : _57;
+    assign _215 = _57 + _49;
+    assign _213 = _26 ? _56 : _57;
     always @* begin
         case (_21)
         3'b000:
-            _220 <= _210;
+            _223 <= _213;
         3'b001:
-            _220 <= _212;
+            _223 <= _215;
         3'b010:
-            _220 <= _217;
+            _223 <= _220;
         3'b011:
-            _220 <= _219;
+            _223 <= _222;
         default:
-            _220 <= _57;
+            _223 <= _57;
         endcase
     end
-    assign _10 = _220;
+    assign _10 = _223;
     always @(posedge _7) begin
         if (_4)
             _57 <= _56;
         else
             _57 <= _10;
     end
-    assign _223 = _57 == _222;
-    assign _224 = _223 ? _38 : _21;
-    assign _92 = 3'b001;
+    assign _226 = _57 == _225;
+    assign _227 = _226 ? _38 : _21;
+    assign _60 = 3'b001;
     assign _12 = reg_wdata;
     assign _25 = _12[0:0];
     assign _22 = 4'b0000;
@@ -652,22 +654,22 @@ module aoc_solver_top (
     assign _14 = reg_write_strobe;
     assign _24 = _14 & _23;
     assign _26 = _24 & _25;
-    assign _221 = _26 ? _92 : _21;
+    assign _224 = _26 ? _60 : _21;
     always @* begin
         case (_21)
         3'b000:
-            _230 <= _221;
+            _233 <= _224;
         3'b001:
-            _230 <= _224;
+            _233 <= _227;
         3'b010:
-            _230 <= _227;
+            _233 <= _230;
         3'b011:
-            _230 <= _229;
+            _233 <= _232;
         default:
-            _230 <= _21;
+            _233 <= _21;
         endcase
     end
-    assign _15 = _230;
+    assign _15 = _233;
     always @(posedge _7) begin
         if (_4)
             _21 <= _20;
@@ -677,36 +679,36 @@ module aoc_solver_top (
     always @* begin
         case (_21)
         3'b000:
-            _238 <= _234;
+            _241 <= _237;
         3'b010:
-            _238 <= _237;
+            _241 <= _240;
         default:
-            _238 <= _232;
+            _241 <= _235;
         endcase
     end
-    assign _16 = _238;
+    assign _16 = _241;
     always @(posedge _7) begin
         if (_4)
-            _232 <= _231;
+            _235 <= _234;
         else
-            _232 <= _16;
+            _235 <= _16;
     end
-    assign _243 = { _232,
-                    _242 };
+    assign _246 = { _235,
+                    _245 };
     assign _18 = reg_addr;
     always @* begin
         case (_18)
         0:
-            _246 <= _245;
+            _249 <= _248;
         1:
-            _246 <= _243;
+            _249 <= _246;
         2:
-            _246 <= _245;
+            _249 <= _248;
         default:
-            _246 <= _245;
+            _249 <= _248;
         endcase
     end
-    assign reg_rdata = _246;
+    assign reg_rdata = _249;
 
 endmodule
 
