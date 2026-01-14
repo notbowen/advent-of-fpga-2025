@@ -12,7 +12,7 @@ module Config = struct
   let height = 10
 end
 
-module Solver = Day04.Aoc_solver.Make_with_memory (Config)
+module Solver = Day04.Axi_adapter.Make (Config)
 
 let generate_rtl () =
   let module C = Circuit.With_interface (Solver.I) (Solver.O) in
