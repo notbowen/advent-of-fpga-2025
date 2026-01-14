@@ -39,6 +39,8 @@ module Make (Config : Config) = struct
   end
 
   let create _scope (i : _ I.t) =
+    let latency = Config.width + 5 in
+
     let spec = Clocking.to_spec i.clocking in
     let sm = Always.State_machine.create (module State) spec in
 
@@ -66,8 +68,8 @@ module Make (Config : Config) = struct
 
     let window = [ taps row0; taps row1; taps row2 ] in
 
-    let cur_x = pipeline spec ~n:(Config.width + 3) x_count.value in
-    let cur_y = pipeline spec ~n:(Config.width + 3) y_count.value in
+    let cur_x = pipeline spec ~n:(latency - 1) x_count.value in
+    let cur_y = pipeline spec ~n:(latency - 1) y_count.value in
 
     let is_left = cur_x ==:. 0 in
     let is_right = cur_x ==:. Config.width - 1 in
@@ -93,10 +95,13 @@ module Make (Config : Config) = struct
       |> List.concat
       |> List.map ~f:(fun n -> uresize n ~width:4)
       |> reduce ~f:( +: )
+      |> reg spec ~enable:enable_shift
     in
 
-    let remove = sm.is Process &: center &: (neighbours_count <:. 4) in
-    let write_addr = pipeline spec ~n:(Config.width + 3) read_addr.value in
+    let center_delayed = reg spec ~enable:enable_shift center in
+
+    let remove = sm.is Process &: center_delayed &: (neighbours_count <:. 4) in
+    let write_addr = pipeline spec ~n:latency read_addr.value in
 
     let advancing =
       sm.is Load
@@ -131,7 +136,7 @@ module Make (Config : Config) = struct
               ( Load,
                 [
                   when_
-                    (read_addr.value ==:. Config.width + 2)
+                    (read_addr.value ==:. latency - 1)
                     [ sm.set_next Process ];
                 ] );
               ( Process,
@@ -227,7 +232,8 @@ module Make_with_memory (Config : Config) = struct
     in
 
     let solver_read_data =
-      memory.(0) |> pipeline spec ~n:2 |> Config.Data.Of_signal.unpack
+      memory.(0) |> reg spec |> pipeline spec ~n:2
+      |> Config.Data.Of_signal.unpack
     in
     Config.Data.Of_signal.assign read_wire solver_read_data;
 
