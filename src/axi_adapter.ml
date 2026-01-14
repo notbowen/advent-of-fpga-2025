@@ -26,7 +26,7 @@ module Make (Config : Aoc_solver.Config) = struct
       reg_fb spec
         ~enable:(i.reg_write_strobe &: (i.reg_addr ==:. 2))
         ~width:Config.log_size
-        ~f:(fun _ -> i.reg_wdata.:[6, 0])
+        ~f:(fun _ -> i.reg_wdata.:[Config.log_size - 1, 0])
     in
 
     let ram_write_en = i.reg_write_strobe &: (i.reg_addr ==:. 3) in
