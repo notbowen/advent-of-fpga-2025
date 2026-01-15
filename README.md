@@ -76,6 +76,7 @@ Connect to the FPGA to your computer and you'll see the output sent back via
 UART.
 
 ![](img/itworks.jpeg)
+
 *Day 4 running on my ZedBoard*
 
 ## Day 4 Logic
