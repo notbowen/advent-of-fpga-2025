@@ -75,7 +75,7 @@ Export an `.xsa` file and open it up in Vitis, and create an application with
 Connect to the FPGA to your computer and you'll see the output sent back via
 UART.
 
-![](img/itworks.jpeg)
+![](img/fpga.png)
 
 *Day 4 running on my ZedBoard*
 
